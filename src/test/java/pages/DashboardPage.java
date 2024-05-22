@@ -13,7 +13,7 @@ public class DashboardPage {
     public void openPage() {
         open(pagePath);
     }
-    private static final By skipButton = By.id("//*[@data-testid='toolbar-main']");
+    private static final String skipButton = "[data-testid='toolbar-main']";
 
     public SelenideElement getSkipButton() {
         return $(skipButton);
