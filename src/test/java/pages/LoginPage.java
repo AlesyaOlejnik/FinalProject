@@ -49,6 +49,7 @@ public class LoginPage {
     }
 
     public DashboardPage successfulLogin(String username, String password) {
+        openPage();
         login(username, password);
         return new DashboardPage();
     }
