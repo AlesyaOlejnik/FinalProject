@@ -10,12 +10,10 @@ import static com.codeborne.selenide.Selenide.open;
 public class DashboardPage {
     private static final String pagePath = "/dashboard";
 
-    public void openPage() {
-        open(pagePath);
-    }
-    private static final String skipButton = "[data-testid='toolbar-main']";
 
-    public SelenideElement getSkipButton() {
-        return $(skipButton);
+    private static final String toolbar = "[data-testid='toolbar-main']";
+
+    public SelenideElement getToolbarButton() {
+        return $(toolbar);
     }
 }

@@ -4,7 +4,6 @@ import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
 
 public class LoginPage {
     private static final String pagePath = "/";
@@ -13,9 +12,6 @@ public class LoginPage {
     private final By passwordInputLocator = By.id(":r2:");
     private final By loginButtonLocator = By.xpath("//*[@data-testid='button-login']");
 
-    public void openPage() {
-        open(pagePath);
-    }
 
     public SelenideElement getEmailInput() {
        return $(emailInputLocator);
@@ -49,7 +45,6 @@ public class LoginPage {
     }
 
     public DashboardPage successfulLogin(String username, String password) {
-        openPage();
         login(username, password);
         return new DashboardPage();
     }
