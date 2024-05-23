@@ -1,6 +1,7 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
+import configuration.ReadProperties;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -41,6 +42,13 @@ public class LoginPage {
         this
                 .setEmail(username)
                 .setPassword(password)
+                .clickLoginButton();
+    }
+
+    public void login() {
+        this
+                .setEmail(ReadProperties.getUserName())
+                .setPassword(ReadProperties.getPassword())
                 .clickLoginButton();
     }
 
