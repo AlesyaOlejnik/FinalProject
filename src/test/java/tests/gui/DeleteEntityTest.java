@@ -1,14 +1,10 @@
 package tests.gui;
 
 import baseEntities.BaseTest;
-import com.codeborne.selenide.CollectionCondition;
-import com.codeborne.selenide.Condition;
 import configuration.ReadProperties;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.SettingsPage;
 import steps.NavigationSteps;
 import steps.ProjectSteps;
 
@@ -28,7 +24,7 @@ public class DeleteEntityTest extends BaseTest {
                 .shouldHave(sizeGreaterThan(0))
                 .size();
 
-        new ProjectSteps().deleteProject();
+        new ProjectSteps().deleteLastProject();
 
         $$(By.xpath("//*[contains(@class, 'table-row')]")).shouldHave(sizeLessThan(projectsCount));
         int projectsCountAfterRemove = $$(By.xpath("//*[contains(@class, 'table-row')]"))
