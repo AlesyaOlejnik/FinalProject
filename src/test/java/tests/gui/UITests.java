@@ -4,11 +4,11 @@ import baseEntities.BaseTest;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import configuration.ReadProperties;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import steps.DashboardStep;
+import steps.ProjectSteps;
 
 import java.io.File;
 import java.io.IOException;
@@ -76,7 +76,8 @@ public class UITests extends BaseTest {
                 .goToProjectPage();
         int projectsCount = $$(PROJECTS_LIST).shouldHave(sizeGreaterThan(0)).size();
 
-        projectPage.deleteLastProject();
+        new ProjectSteps().deleteLastProject();
+
         int projectsCountAfterRemove = $$(PROJECTS_LIST).shouldHave(sizeLessThan(projectsCount)).size();
         Assert.assertEquals(projectsCountAfterRemove, projectsCount - 1, "Проект не удален");
     }
