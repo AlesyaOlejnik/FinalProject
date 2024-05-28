@@ -24,6 +24,7 @@ public class BaseTest {
         Configuration.baseUrl = ReadProperties.getUrl();
         Configuration.headless = ReadProperties.isHeadless();
         Configuration.browser = ReadProperties.browserName();
+        Configuration.browserSize = "1920x1080";
         //Configuration.pageLoadTimeout = ReadProperties.pageLoadTimeout() * 1000;
         Configuration.timeout = ReadProperties.getTimeout() * 1000;
         Configuration.assertionMode = AssertionMode.SOFT;
