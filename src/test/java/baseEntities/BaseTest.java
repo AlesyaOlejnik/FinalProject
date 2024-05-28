@@ -13,6 +13,7 @@ import org.testng.annotations.Listeners;
 import pages.ProjectPage;
 import steps.DashboardStep;
 import steps.LoginStep;
+import steps.ProjectSteps;
 import steps.TestCasesStep;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -26,6 +27,8 @@ public class BaseTest {
     protected DashboardStep dashboardStep;
 
     protected TestCasesStep testCasesStep;
+
+    protected ProjectSteps projectSteps;
 
     protected ProjectPage projectPage;
 

@@ -71,12 +71,12 @@ public class UITests extends BaseTest {
 
     @Test
     public void deleteEntityTest() {
-        new DashboardStep()
+        dashboardStep
                 .goToProjectSettingsPage()
                 .goToProjectPage();
         int projectsCount = $$(PROJECTS_LIST).shouldHave(sizeGreaterThan(0)).size();
 
-        new ProjectSteps().deleteLastProject();
+        projectSteps.deleteLastProject();
 
         int projectsCountAfterRemove = $$(PROJECTS_LIST).shouldHave(sizeLessThan(projectsCount)).size();
         Assert.assertEquals(projectsCountAfterRemove, projectsCount - 1, "Проект не удален");
