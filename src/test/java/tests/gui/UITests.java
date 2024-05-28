@@ -4,6 +4,8 @@ import baseEntities.BaseTest;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import configuration.ReadProperties;
+import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import steps.DashboardStep;
@@ -14,10 +16,14 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.util.UUID;
 
+import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
+import static com.codeborne.selenide.CollectionCondition.sizeLessThan;
 import static com.codeborne.selenide.Condition.clickable;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$$;
+import static pages.ProjectPage.PROJECTS_LIST;
 
 public class UITests extends BaseTest {
 
@@ -61,5 +67,17 @@ public class UITests extends BaseTest {
                 .getResource(fileName);
         File file = new File(url.getFile());
         return new String(Files.readAllBytes(file.toPath()));
+    }
+
+    @Test
+    public void deleteEntityTest() {
+        new DashboardStep()
+                .goToProjectSettingsPage()
+                .goToProjectPage();
+        int projectsCount = $$(PROJECTS_LIST).shouldHave(sizeGreaterThan(0)).size();
+
+        projectPage.deleteLastProject();
+        int projectsCountAfterRemove = $$(PROJECTS_LIST).shouldHave(sizeLessThan(projectsCount)).size();
+        Assert.assertEquals(projectsCountAfterRemove, projectsCount - 1, "Проект не удален");
     }
 }

@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import com.codeborne.selenide.Configuration;
 import org.testng.annotations.Listeners;
+import pages.ProjectPage;
 import steps.DashboardStep;
 import steps.LoginStep;
 import steps.TestCasesStep;
@@ -26,10 +27,13 @@ public class BaseTest {
 
     protected TestCasesStep testCasesStep;
 
+    protected ProjectPage projectPage;
+
     public BaseTest() {
         this.loginStep = new LoginStep();
         this.dashboardStep = new DashboardStep();
         this.testCasesStep = new TestCasesStep();
+        this.projectPage = new ProjectPage();
     }
 
     @BeforeSuite
