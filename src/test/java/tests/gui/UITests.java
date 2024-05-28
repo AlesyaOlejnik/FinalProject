@@ -2,46 +2,34 @@ package tests.gui;
 
 import baseEntities.BaseTest;
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
-import org.openqa.selenium.By;
-import org.testng.Assert;
+import configuration.ReadProperties;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import pages.LoginPage;
+import steps.DashboardStep;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Objects;
-import java.util.ResourceBundle;
 import java.util.UUID;
 
 import static com.codeborne.selenide.Condition.clickable;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.byClassName;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
 
 public class UITests extends BaseTest {
-
 
     @BeforeMethod
     @Override
     public void setupBrowser() {
         super.setupBrowser();
-        new LoginPage().login();
+        loginStep.successfulLogin(ReadProperties.getUserName(), ReadProperties.getPassword());
     }
 
-    @Test
-    public void checkInputField() throws InterruptedException, IOException {
+    @Test //TODO переписать с использованием  PageObject
+    public void checkInputField() throws IOException {
         Selenide.open("/testcases");
         $(byText("Create a test case")).shouldBe(Condition.clickable).click();
         String fileName = "more_than_200_symbols.txt";
@@ -50,8 +38,8 @@ public class UITests extends BaseTest {
         $(byText("Valid input is required")).shouldBe(visible);
     }
 
-    @Test
-    public void createEntity() throws InterruptedException {
+    @Test //TODO переписать с использованием  PageObject
+    public void createEntity() {
         Selenide.open("/testcases");
         $("[data-testid='button-add']").shouldBe(clickable).click();
         String testName = UUID.randomUUID().toString();
@@ -60,12 +48,18 @@ public class UITests extends BaseTest {
         $(byText(testName)).shouldBe(visible);
     }
 
+    @Test
+    public void uploadFile() {
+        new DashboardStep().goToTestCasesPage();
+        File file = new File("src/test/resources/upload.csv");
+        testCasesStep.downloadFile(file);
+    }
+
     private String getStringFromFile(String fileName) throws IOException {
         URL url = this.getClass()
                 .getClassLoader()
                 .getResource(fileName);
         File file = new File(url.getFile());
-        String content = new String(Files.readAllBytes(file.toPath()));
-        return content;
+        return new String(Files.readAllBytes(file.toPath()));
     }
 }

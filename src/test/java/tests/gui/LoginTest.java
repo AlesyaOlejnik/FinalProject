@@ -2,9 +2,8 @@ package tests.gui;
 
 import baseEntities.BaseTest;
 import configuration.ReadProperties;
-import org.testng.Assert;
 import org.testng.annotations.Test;
-import steps.NavigationSteps;
+import steps.LoginStep;
 
 import static com.codeborne.selenide.Condition.visible;
 
@@ -13,12 +12,11 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void successfulLoginTest() {
-        NavigationSteps navigationSteps = new NavigationSteps();
+        LoginStep navigationSteps = new LoginStep();
 
-        Assert.assertTrue(
-                navigationSteps
-                        .successfulLogin(ReadProperties.getUserName(), ReadProperties.getPassword())
-                        .getToolbarButton().shouldBe(visible).isDisplayed());
+        navigationSteps
+                .successfulLogin(ReadProperties.getUserName(), ReadProperties.getPassword())
+                .getToolbarButton().shouldBe(visible);
     }
 
 }

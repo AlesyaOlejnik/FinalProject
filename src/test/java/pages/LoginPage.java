@@ -1,54 +1,50 @@
 package pages;
 
+import baseEntities.BasePage;
+import baseEntities.User;
 import com.codeborne.selenide.SelenideElement;
-import configuration.ReadProperties;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Condition.clickable;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
-public class LoginPage {
-    private static final String pagePath = "/";
-
-    private static final By emailInputLocator = By.id(":r0:");
-    private final By passwordInputLocator = By.id(":r2:");
-    private final By loginButtonLocator = By.xpath("//*[@data-testid='button-login']");
+public class LoginPage implements BasePage {
+    private static final By EMAIL_INPUT_LOCATOR = By.id(":r0:");
+    private static final By PASSWORD_INPUT_LOCATOR = By.id(":r2:");
+    private static final By LOGIN_BUTTON_LOCATOR = By.xpath("//*[@data-testid='button-login']");
 
 
     public SelenideElement getEmailInput() {
-       return $(emailInputLocator);
+        return $(EMAIL_INPUT_LOCATOR).shouldBe(visible);
     }
 
-    public LoginPage setEmail(String value){
+    public LoginPage setEmail(String value) {
         getEmailInput().sendKeys(value);
         return this;
     }
 
-    public SelenideElement getPasswordInput(){
-        return $(passwordInputLocator);
+    public SelenideElement getPasswordInput() {
+        return $(PASSWORD_INPUT_LOCATOR).shouldBe(visible);
     }
-    public LoginPage setPassword(String value){
+
+    public LoginPage setPassword(String value) {
         getPasswordInput().sendKeys(value);
         return this;
     }
 
     public SelenideElement getLoginButton() {
-        return $(loginButtonLocator);
+        return $(LOGIN_BUTTON_LOCATOR).shouldBe(clickable);
     }
 
     public void clickLoginButton() {
         getLoginButton().click();
     }
+
     private void login(String username, String password) {
         this
                 .setEmail(username)
                 .setPassword(password)
-                .clickLoginButton();
-    }
-
-    public void login() {
-        this
-                .setEmail(ReadProperties.getUserName())
-                .setPassword(ReadProperties.getPassword())
                 .clickLoginButton();
     }
 
@@ -57,10 +53,8 @@ public class LoginPage {
         return new DashboardPage();
     }
 
-    public LoginPage incorrectLogin(String username, String password) {
-        login(username, password);
-        return this;
+    @Override
+    public By getPageIdentifier() {
+        return LOGIN_BUTTON_LOCATOR;
     }
-
-
 }

@@ -1,11 +1,12 @@
 package steps;
 
-import baseEntities.BaseSteps;
+import baseEntities.BaseStep;
 import pages.DashboardPage;
 
-public class NavigationSteps extends BaseSteps {
+public class LoginStep extends BaseStep {
 
     public DashboardPage successfulLogin(String username, String password) {
         return loginPage.successfulLogin(username, password);
     }
+
 }
