@@ -10,12 +10,27 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import com.codeborne.selenide.Configuration;
 import org.testng.annotations.Listeners;
+import steps.DashboardStep;
+import steps.LoginStep;
+import steps.TestCasesStep;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 @Listeners({SoftAsserts.class})
 public class BaseTest {
+
+    protected LoginStep loginStep;
+
+    protected DashboardStep dashboardStep;
+
+    protected TestCasesStep testCasesStep;
+
+    public BaseTest() {
+        this.loginStep = new LoginStep();
+        this.dashboardStep = new DashboardStep();
+        this.testCasesStep = new TestCasesStep();
+    }
 
     @BeforeSuite
     public void setupSuite() {
@@ -26,7 +41,7 @@ public class BaseTest {
         Configuration.browser = ReadProperties.browserName();
         Configuration.browserSize = "1920x1080";
         //Configuration.pageLoadTimeout = ReadProperties.pageLoadTimeout() * 1000;
-        Configuration.timeout = ReadProperties.getTimeout() * 1000;
+        Configuration.timeout = ReadProperties.getTimeout() * 1000L;
         Configuration.assertionMode = AssertionMode.SOFT;
         Configuration.fastSetValue = true;
     }
@@ -36,8 +51,4 @@ public class BaseTest {
         open("/");
     }
 
-    @AfterMethod
-    public void tearDown() {
-        closeWebDriver();
-    }
 }
