@@ -5,38 +5,30 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import com.codeborne.selenide.testng.SoftAsserts;
 import configuration.ReadProperties;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import com.codeborne.selenide.Configuration;
 import org.testng.annotations.Listeners;
-import pages.ProjectPage;
 import steps.DashboardStep;
 import steps.LoginStep;
-import steps.ProjectSteps;
+import steps.ProjectStep;
 import steps.TestCasesStep;
 
 import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 @Listeners({SoftAsserts.class})
 public class BaseTest {
 
     protected LoginStep loginStep;
-
     protected DashboardStep dashboardStep;
-
     protected TestCasesStep testCasesStep;
-
-    protected ProjectSteps projectSteps;
-
-    protected ProjectPage projectPage;
+    protected ProjectStep projectSteps;
 
     public BaseTest() {
         this.loginStep = new LoginStep();
         this.dashboardStep = new DashboardStep();
         this.testCasesStep = new TestCasesStep();
-        this.projectPage = new ProjectPage();
+        this.projectSteps = new ProjectStep();
     }
 
     @BeforeSuite

@@ -4,11 +4,11 @@ import baseEntities.BaseTest;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
 import configuration.ReadProperties;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import steps.DashboardStep;
-import steps.ProjectSteps;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,14 +16,10 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.util.UUID;
 
-import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
-import static com.codeborne.selenide.CollectionCondition.sizeLessThan;
 import static com.codeborne.selenide.Condition.clickable;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selenide.$$;
-import static pages.ProjectPage.PROJECTS_LIST;
 
 public class UITests extends BaseTest {
 
@@ -74,11 +70,28 @@ public class UITests extends BaseTest {
         dashboardStep
                 .goToProjectSettingsPage()
                 .goToProjectPage();
-        int projectsCount = $$(PROJECTS_LIST).shouldHave(sizeGreaterThan(0)).size();
+        int projectsBeforeRemove = projectSteps.projectsCount();
+        int expResult = projectsBeforeRemove - 1;
 
         projectSteps.deleteLastProject();
 
-        int projectsCountAfterRemove = $$(PROJECTS_LIST).shouldHave(sizeLessThan(projectsCount)).size();
-        Assert.assertEquals(projectsCountAfterRemove, projectsCount - 1, "Проект не удален");
+        int projectsAfterRemove = projectSteps.projectsCount();
+        Assert.assertEquals(projectsAfterRemove, expResult, "Проект не удален");
+    }
+
+    @Test
+    public void dialogBoxTest() {
+        dashboardStep.goToProjectSettingsPage().goToProjectPage();
+
+        String name = projectSteps.getProjectLastName();
+
+        projectSteps.choseLastProject();
+        projectSteps.clickDeleteLPButton();
+
+        $(By.xpath("//div[text() ='Delete']")).shouldBe(clickable);
+        Assert.assertEquals("Confirm project deletion", $x("//*[@data-testid='text-title']").text());
+        Assert.assertEquals($x("//*[@data-testid='text-body']").text(),
+                "Do you want to delete the project " + name + "?");
+        $(By.xpath("//div[text() ='Delete']")).shouldBe(clickable);
     }
 }
