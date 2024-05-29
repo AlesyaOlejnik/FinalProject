@@ -29,11 +29,16 @@ public class ReadProperties {
     public static String getPassword(){
         return properties.getProperty("password");
     }
+
     public static boolean isHeadless(){
         return properties.getProperty("headless").equalsIgnoreCase("true");
     }
 
     public static int getTimeout(){
         return Integer.parseInt(properties.getProperty("timeout"));
+    }
+
+    public static String getToken(){
+        return properties.getProperty("token");
     }
 }
