@@ -14,7 +14,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Condition.clickable;
 import static com.codeborne.selenide.Condition.visible;
@@ -82,16 +84,21 @@ public class UITests extends BaseTest {
     @Test
     public void dialogBoxTest() {
         dashboardStep.goToProjectSettingsPage().goToProjectPage();
-
-        String name = projectSteps.getProjectLastName();
-
+        //Получаем имя проекта с Project Key и Description(если они есть) и убираем переносы на новую строку
+        String name = Arrays.stream(projectSteps.getProjectLastName().split("\n")).collect(Collectors.joining());
         projectSteps.choseLastProject();
         projectSteps.clickDeleteLPButton();
 
+        String actualResult= "Do you want to delete the project " + name + "?";
+
+        String tmp = $x("//*[@data-testid='text-body']").text(); //актуальный текст
+        String expectedResult = tmp.substring(0, tmp.length() - 1) +
+                  projectSteps.getLastKey() +
+                  projectSteps.getLastDescription() + "?";
+
         $(By.xpath("//div[text() ='Delete']")).shouldBe(clickable);
         Assert.assertEquals("Confirm project deletion", $x("//*[@data-testid='text-title']").text());
-        Assert.assertEquals($x("//*[@data-testid='text-body']").text(),
-                "Do you want to delete the project " + name + "?");
+        Assert.assertEquals(actualResult, expectedResult);
         $(By.xpath("//div[text() ='Delete']")).shouldBe(clickable);
     }
 }

@@ -44,4 +44,22 @@ public class ProjectStep extends BaseStep {
         return $$(PROJECTS_LIST).shouldHave(sizeGreaterThan(0)).size();
     }
 
+    public String getLastKey() {
+        String projectName = projectPage.getDescriptionList()
+                .shouldHave(sizeGreaterThan(0))
+                .get(projectPage.getDescriptionList().size() - 2)
+                .getText();
+        return projectName;
+    }
+
+    public String getLastDescription() {
+        String projectName = projectPage.getDescriptionList()
+                .shouldHave(sizeGreaterThan(0))
+                .last()
+                .getText();
+        return projectName;
+    }
+
+
+
 }

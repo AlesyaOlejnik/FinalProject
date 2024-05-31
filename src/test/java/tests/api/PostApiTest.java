@@ -13,7 +13,7 @@ public class PostApiTest extends BaseApiTest {
 
         given()
                 .body(String.format("{\n" +
-                        "  \"id\": 4,\n" +
+                        "  \"id\": 10,\n" +
                         "  \"is_deleted\": true,\n" +
                         "  \"created_at\": \"1970-01-01T00:00:00.000Z\",\n" +
                         "  \"created_by\": 0,\n" +
@@ -23,9 +23,9 @@ public class PostApiTest extends BaseApiTest {
                         "  \"deleted_by\": 0,\n" +
                         "  \"_etag\": \"string\",\n" +
                         "  \"owner_user_id\": 0,\n" +
-                        "  \"name\": \"ApiProject\",\n" +
-                        "  \"project_key\": \"PRO\",\n" +
-                        "  \"description\": \"string\"\n" +
+                        "  \"name\": \"Api36\",\n" +
+                        "  \"project_key\": \"SAS1\",\n" +
+                        "  \"description\": \"sa\"\n" +
                         "}"))
                 .when()
                 .post(endPoint)

@@ -16,7 +16,9 @@ public class ProjectPage implements BasePage {
 
     public static final By PROJECTS_LIST = By.xpath("//*[contains(@class, 'table-row')]");
 
-    public static final By DELETE_LP_BUTTON_LOCATOR = (By.xpath("(//button[@data-testid='button-more_single:delete'])[last()]"));
+    public static final By DELETE_LP_BUTTON_LOCATOR = By.xpath("(//button[@data-testid='button-more_single:delete'])[last()]");
+
+    public static final By DESCRIPTIONS_LOCATOR = By.xpath("//*[@data-testid='cell-text']");
 
     @Override
     public By getPageIdentifier() {
@@ -29,6 +31,10 @@ public class ProjectPage implements BasePage {
 
     public ElementsCollection getProjectsList() {
         return  $$(PROJECTS_LIST);
+    }
+
+    public ElementsCollection getDescriptionList() {
+        return  $$(DESCRIPTIONS_LOCATOR);
     }
 
 
