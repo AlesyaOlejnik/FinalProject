@@ -13,6 +13,7 @@ public class DashboardPage implements BasePage {
 
     private static final By TOOLBAR_LOCATOR = By.cssSelector("[data-testid='toolbar-main']");
     private static final By TEST_CASE_BUTTON = By.cssSelector("[data-testid='item-testcases']");
+    private static final By TEST_PLAN_BUTTON = By.cssSelector("[data-testid='item-testplans']");
 
     public SelenideElement getToolbarButton() {
         return $(TOOLBAR_LOCATOR);
@@ -25,5 +26,8 @@ public class DashboardPage implements BasePage {
 
     public void clickTestCaseButton() {
         $(TEST_CASE_BUTTON).shouldBe(clickable).click();
+    }
+    public void clickTestPlanButton(){
+        $(TEST_PLAN_BUTTON).shouldBe(clickable).click();
     }
 }

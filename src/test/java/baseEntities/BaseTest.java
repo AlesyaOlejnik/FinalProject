@@ -3,6 +3,7 @@ package baseEntities;
 import com.codeborne.selenide.AssertionMode;
 import com.codeborne.selenide.testng.SoftAsserts;
 import configuration.ReadProperties;
+import org.openqa.selenium.PageLoadStrategy;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
@@ -11,6 +12,12 @@ import org.testng.annotations.Listeners;
 import steps.DashboardStep;
 import steps.LoginStep;
 import steps.TestCasesStep;
+import steps.TestPlanStep;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
@@ -23,11 +30,13 @@ public class BaseTest {
     protected DashboardStep dashboardStep;
 
     protected TestCasesStep testCasesStep;
+    protected TestPlanStep testPlanStep;
 
     public BaseTest() {
         this.loginStep = new LoginStep();
         this.dashboardStep = new DashboardStep();
         this.testCasesStep = new TestCasesStep();
+        this.testPlanStep = new TestPlanStep();
     }
 
     @BeforeSuite
@@ -35,7 +44,6 @@ public class BaseTest {
         Configuration.baseUrl = ReadProperties.getUrl();
         Configuration.headless = ReadProperties.isHeadless();
         Configuration.browser = ReadProperties.browserName();
-        //Configuration.pageLoadTimeout = ReadProperties.pageLoadTimeout() * 1000;
         Configuration.timeout = ReadProperties.getTimeout() * 1000L;
         Configuration.assertionMode = AssertionMode.SOFT;
         Configuration.fastSetValue = true;
@@ -46,4 +54,16 @@ public class BaseTest {
         open("/");
     }
 
+    private String getStringFromFile(String fileName) throws IOException {
+        URL url = this.getClass()
+                .getClassLoader()
+                .getResource(fileName);
+        File file = new File(url.getFile());
+        return new String(Files.readAllBytes(file.toPath()));
+    }
+
+    protected String getTestNameFromFile() throws IOException {
+        String fileName = "more_than_200_symbols.txt";
+        return getStringFromFile(fileName);
+    }
 }

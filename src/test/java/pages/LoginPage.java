@@ -13,6 +13,7 @@ public class LoginPage implements BasePage {
     private static final By EMAIL_INPUT_LOCATOR = By.id(":r0:");
     private static final By PASSWORD_INPUT_LOCATOR = By.id(":r2:");
     private static final By LOGIN_BUTTON_LOCATOR = By.xpath("//*[@data-testid='button-login']");
+    private static final By ERROR_LOGIN_MESSAGE = By.xpath("//span[contains(text(),'Either your email')]");
 
 
     public SelenideElement getEmailInput() {
@@ -51,6 +52,15 @@ public class LoginPage implements BasePage {
     public DashboardPage successfulLogin(String username, String password) {
         login(username, password);
         return new DashboardPage();
+    }
+
+    public LoginPage unsuccessfulLogin() {
+        login("username@box.neverni", "password");
+        return new LoginPage();
+    }
+
+    public void checkWrongEmailMessage(){
+        $(ERROR_LOGIN_MESSAGE).shouldBe(visible);
     }
 
     @Override
