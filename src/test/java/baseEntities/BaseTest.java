@@ -1,6 +1,7 @@
 package baseEntities;
 
 import com.codeborne.selenide.AssertionMode;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import com.codeborne.selenide.testng.SoftAsserts;
 import configuration.ReadProperties;
@@ -57,6 +58,11 @@ public class BaseTest {
     @BeforeMethod
     public void setupBrowser() {
         open("/");
+    }
+
+    @AfterMethod
+    public void closeBrowser() {
+        Selenide.closeWindow();
     }
 
     private String getStringFromFile(String fileName) throws IOException {
