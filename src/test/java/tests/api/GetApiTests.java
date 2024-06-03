@@ -21,6 +21,17 @@ public class GetApiTests extends BaseApiTest {
     }
 
     @Test
+    public void getTestPlanTest() {
+        String endPoint = "/api/v1/testplan";
+        given()
+                .when()
+                .get(endPoint)
+                .then().log().body()
+                .statusCode(HttpStatus.SC_OK);
+
+    }
+
+    @Test
     public void getUserInfoTest() {
         String endPoint = "/api/v1/account/me";
 
