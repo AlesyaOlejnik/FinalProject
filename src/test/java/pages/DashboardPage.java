@@ -14,6 +14,7 @@ public class DashboardPage implements BasePage {
     private static final By ACCOUNT_DROPDOWN_LOCATOR = By.xpath("//*[contains(@class,' account button-dropdown')]");
     private static final By PROJECT_SETTINGS_LOCATOR = By.xpath("//*[contains(text(), 'Settings')]");
     private static final By TEST_CASE_BUTTON = By.cssSelector("[data-testid='item-testcases']");
+    private static final By TEST_PLAN_BUTTON = By.cssSelector("[data-testid='item-testplans']");
 
     public SelenideElement getToolbarButton() {
         return $(TOOLBAR_LOCATOR);
@@ -33,6 +34,9 @@ public class DashboardPage implements BasePage {
 
     public void clickTestCaseButton() {
         $(TEST_CASE_BUTTON).shouldBe(clickable).click();
+    }
+    public void clickTestPlanButton(){
+        $(TEST_PLAN_BUTTON).shouldBe(clickable).click();
     }
 
     public void clickProjectSettingsButton() {

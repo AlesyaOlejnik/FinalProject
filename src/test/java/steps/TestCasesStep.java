@@ -18,4 +18,24 @@ public class TestCasesStep extends BaseStep {
         testCasesPage.affirmDelete();
     }
 
+    public void createTestCase(String testName){
+        testCasesPage.clickCreateTestCase();
+        testCasesPage.createTitleTestCase(testName);
+        testCasesPage.saveEntity();
+        testCasesPage.checkSuccessfulCreate(testName);
+        testCasesPage.selectCheckBox();
+        testCasesPage.deleteTestCases();
+        testCasesPage.affirmDelete();
+    }
+
+    public void checkInputFieldForBoundaryValues(String testName){
+        testCasesPage.clickCreateTestCase();
+        testCasesPage.createTitleTestCase(testName);
+        testCasesPage.checkNotValidInputMessage();
+    }
+    public void checkPopupMessage(String testName){
+        testCasesPage.clickCreateTestCase();
+        testCasesPage.createTitleTestCase(testName);
+        testCasesPage.checkPopupMessage();
+    }
 }

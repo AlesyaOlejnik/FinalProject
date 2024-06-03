@@ -1,7 +1,6 @@
 package models;
 
 
-import com.github.javafaker.IdNumber;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;

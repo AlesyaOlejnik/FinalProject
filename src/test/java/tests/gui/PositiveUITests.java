@@ -1,14 +1,11 @@
 package tests.gui;
 
 import baseEntities.BaseTest;
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import configuration.ReadProperties;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import steps.DashboardStep;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,11 +16,10 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static com.codeborne.selenide.Condition.clickable;
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$x;
 
-public class UITests extends BaseTest {
+public class PositiveUITests extends BaseTest {
 
     @BeforeMethod
     @Override
@@ -32,39 +28,32 @@ public class UITests extends BaseTest {
         loginStep.successfulLogin(ReadProperties.getUserName(), ReadProperties.getPassword());
     }
 
-    @Test //TODO переписать с использованием  PageObject
-    public void checkInputField() throws IOException {
-        Selenide.open("/testcases");
-        $(byText("Create a test case")).shouldBe(Condition.clickable).click();
-        String fileName = "more_than_200_symbols.txt";
-        String content = getStringFromFile(fileName);
-        $("[data-testid='textbox-prop-title']").shouldBe(visible).sendKeys(content);
-        $(byText("Valid input is required")).shouldBe(visible);
+    @Test
+    public void checkInputField() throws IOException, InterruptedException {
+        dashboardStep.goToTestCasesPage();
+        String testName = getTestNameFromFile();
+        testCasesStep.checkInputFieldForBoundaryValues(testName);
     }
 
-    @Test //TODO переписать с использованием  PageObject
-    public void createEntity() {
-        Selenide.open("/testcases");
-        $("[data-testid='button-add']").shouldBe(clickable).click();
+    @Test
+    public void createEntity(){
+        dashboardStep.goToTestCasesPage();
         String testName = UUID.randomUUID().toString();
-        $("[placeholder='New test case']").shouldBe(visible).sendKeys(testName);
-        $("[data-testid='button-save-entity']").shouldBe(clickable).click();
-        $(byText(testName)).shouldBe(visible);
+        testCasesStep.createTestCase(testName);
     }
 
     @Test
     public void uploadFile() {
-        new DashboardStep().goToTestCasesPage();
+        dashboardStep.goToTestCasesPage();
         File file = new File("src/test/resources/upload.csv");
         testCasesStep.downloadFile(file);
     }
 
-    private String getStringFromFile(String fileName) throws IOException {
-        URL url = this.getClass()
-                .getClassLoader()
-                .getResource(fileName);
-        File file = new File(url.getFile());
-        return new String(Files.readAllBytes(file.toPath()));
+    @Test
+    public void checkVisiblePopupMessage() throws IOException {
+        dashboardStep.goToTestCasesPage();
+        String testName = getTestNameFromFile();
+        testCasesStep.checkPopupMessage(testName);
     }
 
     @Test
@@ -93,8 +82,8 @@ public class UITests extends BaseTest {
 
         String tmp = $x("//*[@data-testid='text-body']").text(); //актуальный текст
         String expectedResult = tmp.substring(0, tmp.length() - 1) +
-                  projectSteps.getLastKey() +
-                  projectSteps.getLastDescription() + "?";
+                projectSteps.getLastKey() +
+                projectSteps.getLastDescription() + "?";
 
         $(By.xpath("//div[text() ='Delete']")).shouldBe(clickable);
         Assert.assertEquals("Confirm project deletion", $x("//*[@data-testid='text-title']").text());

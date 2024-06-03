@@ -9,4 +9,10 @@ public class LoginStep extends BaseStep {
         return loginPage.successfulLogin(username, password);
     }
 
+    public void unsuccessfulLogin() {
+        loginPage.unsuccessfulLogin();
+        loginPage.clickLoginButton();
+        loginPage.checkWrongEmailMessage();
+    }
+
 }
