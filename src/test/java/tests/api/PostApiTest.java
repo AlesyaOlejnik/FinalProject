@@ -1,6 +1,9 @@
 package tests.api;
 
 import baseEntities.BaseApiTest;
+import com.github.javafaker.Faker;
+import io.restassured.mapper.ObjectMapperType;
+import models.Project;
 import org.apache.http.HttpStatus;
 import org.testng.annotations.Test;
 
@@ -8,7 +11,7 @@ import static io.restassured.RestAssured.given;
 
 public class PostApiTest extends BaseApiTest {
     @Test
-    public void createProjectTest() {
+    public void createProjectTest() { //будет падать тк каждый раз нужны новые данные
         String endPoint = "/api/v1/project";
 
         given()
@@ -27,6 +30,26 @@ public class PostApiTest extends BaseApiTest {
                         "  \"project_key\": \"SAS1\",\n" +
                         "  \"description\": \"sa\"\n" +
                         "}"))
+                .when()
+                .post(endPoint)
+                .then().log().body()
+                .statusCode(HttpStatus.SC_OK);
+
+    }
+
+    @Test
+    public void createProjectFakerTest() {
+        String endPoint = "/api/v1/project";
+
+        Faker faker = new Faker();
+        Project project = new Project();
+        project.setId(faker.random().nextInt(100));
+        project.setName(faker.bothify("####"));
+        project.setProjectKey(faker.bothify("####").toUpperCase());
+        project.setDescription("#################");
+
+        given()
+                .body(project, ObjectMapperType.GSON)
                 .when()
                 .post(endPoint)
                 .then().log().body()
