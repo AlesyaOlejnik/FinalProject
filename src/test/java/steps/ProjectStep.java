@@ -41,6 +41,7 @@ public class ProjectStep extends BaseStep {
     }
 
     public int projectsCount() {
+        projectPage.isPageOpened();
         return $$(PROJECTS_LIST).shouldHave(sizeGreaterThan(0)).size();
     }
 

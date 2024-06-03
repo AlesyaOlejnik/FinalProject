@@ -68,15 +68,15 @@ public class UITests extends BaseTest {
     }
 
     @Test
-    public void deleteEntityTest() {
+    public void deleteEntityTest() throws InterruptedException {
         dashboardStep
                 .goToProjectSettingsPage()
                 .goToProjectPage();
+
         int projectsBeforeRemove = projectSteps.projectsCount();
         int expResult = projectsBeforeRemove - 1;
 
         projectSteps.deleteLastProject();
-
         int projectsAfterRemove = projectSteps.projectsCount();
         Assert.assertEquals(projectsAfterRemove, expResult, "Проект не удален");
     }
