@@ -17,7 +17,6 @@ public class GetApiTests extends BaseApiTest {
                 .get(endPoint)
                 .then().log().body()
                 .statusCode(HttpStatus.SC_OK);
-
     }
 
     @Test
