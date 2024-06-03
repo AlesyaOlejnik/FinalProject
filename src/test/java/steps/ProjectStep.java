@@ -2,8 +2,10 @@ package steps;
 
 import baseEntities.BaseStep;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.SelenideWait;
 import lombok.SneakyThrows;
 import org.openqa.selenium.By;
+import pages.ProjectPage;
 
 
 import java.awt.*;
@@ -17,15 +19,10 @@ import static pages.ProjectPage.PROJECTS_LIST;
 
 public class ProjectStep extends BaseStep {
 
-    public void addProject() {
-
-    }
-
     @SneakyThrows
     public void deleteLastProject() {
         choseLastProject();
-        openDevTool();
-        $(byXpath("//button[@data-testid='button-more_single:delete']")).shouldBe(clickable).click();
+        clickDeleteLPButton();
         $("[data-testid='button-affirm']").shouldBe(clickable).click();
     }
 
@@ -48,6 +45,7 @@ public class ProjectStep extends BaseStep {
         projectPage.getDeleteLPButton().click();
     }
 
+    @SneakyThrows
     public int projectsCount() {
         projectPage.isPageOpened();
         return $$(PROJECTS_LIST).shouldHave(sizeGreaterThan(0)).size();
@@ -67,11 +65,5 @@ public class ProjectStep extends BaseStep {
                 .last()
                 .getText();
         return projectName;
-    }
-
-    private static void openDevTool() throws AWTException {
-        Robot robot = new Robot();
-        robot.keyPress(KeyEvent.VK_F12);
-        robot.keyRelease(KeyEvent.VK_F12);
     }
 }

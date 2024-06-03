@@ -5,8 +5,8 @@
         <classes>
             <class name="tests.api.GetApiTests"/>
             <class name="tests.api.PostApiTest"/>
-            <class name="tests.gui.UITests"/>
-            <class name="tests.gui.LoginTest"/>
+            <class name="tests.gui.PositiveUITests"/>
+            <class name="tests.gui.NegativeUITests"/>
         </classes>
     </test>
 </suite>
