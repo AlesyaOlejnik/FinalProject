@@ -27,11 +27,10 @@ public class ProjectStep extends BaseStep {
     }
 
     public String getProjectLastName() {
-        String projectName = projectPage.getProjectsList()
+        return projectPage.getProjectsList()
                 .shouldHave(sizeGreaterThan(0))
                 .last()
                 .getText();
-        return projectName;
     }
 
     public void choseLastProject() {
@@ -52,18 +51,16 @@ public class ProjectStep extends BaseStep {
     }
 
     public String getLastKey() {
-        String projectName = projectPage.getDescriptionList()
+        return projectPage.getDescriptionList()
                 .shouldHave(sizeGreaterThan(0))
                 .get(projectPage.getDescriptionList().size() - 2)
                 .getText();
-        return projectName;
     }
 
     public String getLastDescription() {
-        String projectName = projectPage.getDescriptionList()
+        return projectPage.getDescriptionList()
                 .shouldHave(sizeGreaterThan(0))
                 .last()
                 .getText();
-        return projectName;
     }
 }
