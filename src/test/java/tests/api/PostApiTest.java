@@ -10,7 +10,7 @@ import static io.restassured.RestAssured.given;
 
 public class PostApiTest extends BaseApiTest {
     @Test
-    public void createProjectTest() { //будет падать тк каждый раз нужны новые данные
+    public void createProjectTest() {
         String endPoint = "/api/v1/project";
 
         String body = "{\n" +
