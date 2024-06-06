@@ -30,11 +30,11 @@ jobs:
           cache: maven
 
       - uses: browser-actions/setup-chrome@v1
+        with:
+          install-chromedriver: true
         id: setup-chrome
       - run: |
           ${{ steps.setup-chrome.outputs.chrome-path }} --version
-        with:
-          install-chromedriver: true
 
       - name: Build with Maven
         run: mvn -B package --file pom.xml
