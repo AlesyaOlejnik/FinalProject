@@ -24,8 +24,8 @@ public class PositiveUITests extends BaseTest {
 
     @BeforeMethod
     @Override
-    public void setupBrowser(ITestContext iTestContext) {
-        super.setupBrowser(iTestContext);
+    public void setupBrowser() {
+        super.setupBrowser();
         loginStep.successfulLogin(ReadProperties.getUserName(), ReadProperties.getPassword());
     }
 
