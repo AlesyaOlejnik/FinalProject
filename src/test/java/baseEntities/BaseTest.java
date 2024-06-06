@@ -45,7 +45,6 @@ public class BaseTest {
     @BeforeSuite
     public void setupSuite() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver");
 
         Configuration.baseUrl = ReadProperties.getUrl();
         Configuration.headless = ReadProperties.isHeadless();
