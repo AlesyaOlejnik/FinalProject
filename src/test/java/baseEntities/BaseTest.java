@@ -46,13 +46,12 @@ public class BaseTest {
     }
 
     @BeforeSuite
-    public void setupSuite(ITestContext iTestContext) {
+    public void setupSuite() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
 
         Configuration.baseUrl = ReadProperties.getUrl();
         Configuration.headless = ReadProperties.isHeadless();
         Configuration.browser = ReadProperties.browserName();
-        setDriverToContext(iTestContext, Selenide.webdriver().object());
         Configuration.browserSize = "1920x1080";
         Configuration.timeout = ReadProperties.getTimeout() * 1000L;
         Configuration.assertionMode = AssertionMode.SOFT;
@@ -60,7 +59,8 @@ public class BaseTest {
     }
 
     @BeforeMethod
-    public void setupBrowser() {
+    public void setupBrowser(ITestContext iTestContext) {
+        setDriverToContext(iTestContext, Selenide.webdriver().object());
         open("/");
     }
 

@@ -4,6 +4,7 @@ import baseEntities.BaseTest;
 import configuration.ReadProperties;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.ITestContext;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -23,8 +24,8 @@ public class PositiveUITests extends BaseTest {
 
     @BeforeMethod
     @Override
-    public void setupBrowser() {
-        super.setupBrowser();
+    public void setupBrowser(ITestContext iTestContext) {
+        super.setupBrowser(iTestContext);
         loginStep.successfulLogin(ReadProperties.getUserName(), ReadProperties.getPassword());
     }
 
