@@ -7,6 +7,8 @@ import com.codeborne.selenide.testng.SoftAsserts;
 import configuration.ReadProperties;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.openqa.selenium.PageLoadStrategy;
+import org.openqa.selenium.WebDriver;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
@@ -17,6 +19,7 @@ import steps.LoginStep;
 import steps.ProjectStep;
 import steps.TestCasesStep;
 import steps.TestPlanStep;
+import utils.InvokedListener;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +28,7 @@ import java.nio.file.Files;
 
 import static com.codeborne.selenide.Selenide.open;
 
-@Listeners({SoftAsserts.class})
+@Listeners({SoftAsserts.class, InvokedListener.class})
 public class BaseTest {
 
     protected LoginStep loginStep;
@@ -43,12 +46,13 @@ public class BaseTest {
     }
 
     @BeforeSuite
-    public void setupSuite() {
+    public void setupSuite(ITestContext iTestContext) {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
 
         Configuration.baseUrl = ReadProperties.getUrl();
         Configuration.headless = ReadProperties.isHeadless();
         Configuration.browser = ReadProperties.browserName();
+        setDriverToContext(iTestContext, Selenide.webdriver().object());
         Configuration.browserSize = "1920x1080";
         Configuration.timeout = ReadProperties.getTimeout() * 1000L;
         Configuration.assertionMode = AssertionMode.SOFT;
@@ -76,5 +80,13 @@ public class BaseTest {
     protected String getTestNameFromFile() throws IOException {
         String fileName = "more_than_200_symbols.txt";
         return getStringFromFile(fileName);
+    }
+
+    public static void setDriverToContext(ITestContext iTestContext, WebDriver driver){
+        iTestContext.setAttribute("WebDriver", driver);
+    }
+
+    public static WebDriver getDriverFromContext(ITestContext iTestContext){
+        return (WebDriver) iTestContext.getAttribute("WebDriver") ;
     }
 }
