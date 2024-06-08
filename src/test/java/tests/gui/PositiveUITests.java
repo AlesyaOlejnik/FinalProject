@@ -74,6 +74,11 @@ public class PositiveUITests extends BaseTest {
         int expResult = projectsBeforeRemove - 1;
 
         projectSteps.deleteLastProject();
+        projectSteps.goToDashboardPage();
+        dashboardStep.goToProjectSettingsPage()
+                .goToProjectPage();
+
+
         int projectsAfterRemove = projectSteps.projectsCount();
         Assert.assertEquals(projectsAfterRemove, expResult, "Проект не удален");
     }

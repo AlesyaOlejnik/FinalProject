@@ -19,6 +19,7 @@ public class ProjectPage implements BasePage {
     public static final By DELETE_LP_BUTTON_LOCATOR = By.xpath("(//button[@data-testid='button-more_single:delete'])[last()]");
 
     public static final By DESCRIPTIONS_LOCATOR = By.xpath("//*[@data-testid='cell-text']");
+    public static final By DASHBOARD_BUTTON = By.cssSelector("[data-testid='link-back-to-app']");
 
     @Override
     public By getPageIdentifier() {
@@ -31,6 +32,11 @@ public class ProjectPage implements BasePage {
 
     public ElementsCollection getProjectsList() {
         return $$(PROJECTS_LIST);
+    }
+
+    public SelenideElement getDashboardButton(){
+        return $(DASHBOARD_BUTTON);
+
     }
 
     public ElementsCollection getDescriptionList() {

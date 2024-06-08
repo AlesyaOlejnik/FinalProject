@@ -2,6 +2,7 @@ package steps;
 
 import baseEntities.BaseStep;
 import lombok.SneakyThrows;
+import pages.DashboardPage;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.clickable;
@@ -10,11 +11,14 @@ import static pages.ProjectPage.PROJECTS_LIST;
 
 public class ProjectStep extends BaseStep {
 
-    @SneakyThrows
     public void deleteLastProject() {
         choseLastProject();
         clickDeleteLPButton();
         $("[data-testid='button-affirm']").shouldBe(clickable).click();
+    }
+
+    public void goToDashboardPage(){
+        projectPage.getDashboardButton().shouldBe(clickable).click();
     }
 
     public String getProjectLastName() {
@@ -37,8 +41,6 @@ public class ProjectStep extends BaseStep {
 
     @SneakyThrows
     public int projectsCount() {
-        projectPage.isPageOpened();
-        Thread.sleep(500);
         return $$(PROJECTS_LIST).size();
     }
 
