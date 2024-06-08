@@ -11,7 +11,7 @@ import static io.restassured.RestAssured.given;
 
 public class AfeApiTests extends BaseApiTest {
 
-    @Test(expectedExceptions = AssertionError.class)
+    @Test()
     @Description("Тест на получение данных о проекте с неверным id")
     public void getWrongIdProjectTest() {
         String endPoint = "/api/v1/project/12";
@@ -20,10 +20,10 @@ public class AfeApiTests extends BaseApiTest {
                 .when()
                 .get(endPoint)
                 .then().log().body()
-                .statusCode(HttpStatus.SC_OK);
+                .statusCode(HttpStatus.SC_NOT_FOUND);
     }
 
-    @Test(expectedExceptions = AssertionError.class)
+    @Test()
     @Description("Тест на создание проекта с невалидным projectkey")
     public void createProjectTest() {
         String endPoint = "/api/v1/project";
@@ -52,7 +52,7 @@ public class AfeApiTests extends BaseApiTest {
                 .when()
                 .post(endPoint)
                 .then().log().body()
-                .statusCode(HttpStatus.SC_OK);
+                .statusCode(HttpStatus.SC_BAD_REQUEST);
 
     }
 }

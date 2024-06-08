@@ -1,6 +1,7 @@
 package tests.api;
 
 import baseEntities.BaseApiTest;
+import io.qameta.allure.Description;
 import org.apache.http.HttpStatus;
 import org.testng.annotations.Test;
 

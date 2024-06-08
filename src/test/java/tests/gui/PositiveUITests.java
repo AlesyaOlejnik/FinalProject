@@ -2,6 +2,7 @@ package tests.gui;
 
 import baseEntities.BaseTest;
 import configuration.ReadProperties;
+import io.qameta.allure.Description;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -29,6 +30,7 @@ public class PositiveUITests extends BaseTest {
     }
 
     @Test
+    @Description("Тест граничных значений")
     public void checkInputField() throws IOException, InterruptedException {
         dashboardStep.goToTestCasesPage();
         String testName = getTestNameFromFile();
@@ -36,6 +38,7 @@ public class PositiveUITests extends BaseTest {
     }
 
     @Test
+    @Description("Тест на создание тест кейса")
     public void createEntity() {
         dashboardStep.goToTestCasesPage();
         String testName = UUID.randomUUID().toString();
@@ -43,6 +46,7 @@ public class PositiveUITests extends BaseTest {
     }
 
     @Test
+    @Description("Тест на загрузку файла")
     public void uploadFile() {
         dashboardStep.goToTestCasesPage();
         File file = new File("src/test/resources/upload.csv");
@@ -50,6 +54,7 @@ public class PositiveUITests extends BaseTest {
     }
 
     @Test
+    @Description("Тест всплывающего окна")
     public void checkVisiblePopupMessage() throws IOException {
         dashboardStep.goToTestCasesPage();
         String testName = getTestNameFromFile();
@@ -57,6 +62,7 @@ public class PositiveUITests extends BaseTest {
     }
 
     @Test
+    @Description("Тест на удаление сущности")
     public void deleteEntityTest()
     {
         dashboardStep
@@ -72,6 +78,7 @@ public class PositiveUITests extends BaseTest {
     }
 
     @Test
+    @Description("Тест диалогового окна")
     public void dialogBoxTest() {
         dashboardStep.goToProjectSettingsPage().goToProjectPage();
         //Получаем имя проекта с Project Key и Description(если они есть) и убираем переносы на новую строку
