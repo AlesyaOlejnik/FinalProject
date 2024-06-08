@@ -10,13 +10,13 @@ public class GetApiTests extends BaseApiTest {
 
     @Test
     public void getProjectTest() {
-        String endPoint = "/api/v1/project/1";
+        String endPoint = "/api/v1/project/1000";
 
         given()
                 .when()
                 .get(endPoint)
                 .then().log().body()
-                .statusCode(HttpStatus.SC_OK);
+                .statusCode(HttpStatus.SC_NOT_FOUND);
     }
 
     @Test
