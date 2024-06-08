@@ -1,19 +1,21 @@
 package baseEntities;
 
 import com.codeborne.selenide.AssertionMode;
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import com.codeborne.selenide.testng.SoftAsserts;
 import configuration.ReadProperties;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.openqa.selenium.WebDriver;
-import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import com.codeborne.selenide.Configuration;
 import org.testng.annotations.Listeners;
-import steps.*;
+import steps.DashboardStep;
+import steps.LoginStep;
+import steps.ProjectStep;
+import steps.TestCasesStep;
+import steps.TestPlanStep;
 
 import java.io.File;
 import java.io.IOException;
@@ -73,13 +75,5 @@ public class BaseTest {
     protected String getTestNameFromFile() throws IOException {
         String fileName = "more_than_200_symbols.txt";
         return getStringFromFile(fileName);
-    }
-
-    public static void setDriverToContext(ITestContext iTestContext, WebDriver driver){
-        iTestContext.setAttribute("WebDriver", driver);
-    }
-
-    public static WebDriver getDriverFromContext(ITestContext iTestContext){
-        return (WebDriver) iTestContext.getAttribute("WebDriver") ;
     }
 }

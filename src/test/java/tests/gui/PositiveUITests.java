@@ -2,6 +2,7 @@ package tests.gui;
 
 import baseEntities.BaseTest;
 import configuration.ReadProperties;
+import io.qameta.allure.Description;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -30,6 +31,7 @@ public class PositiveUITests extends BaseTest {
     }
 
     @Test
+    @Description("Тест граничных значений")
     public void checkInputField() throws IOException, InterruptedException {
         dashboardStep.goToTestCasesPage();
         String testName = getTestNameFromFile();
@@ -37,13 +39,15 @@ public class PositiveUITests extends BaseTest {
     }
 
     @Test
-    public void createEntity(){
+    @Description("Тест на создание тест кейса")
+    public void createEntity() {
         dashboardStep.goToTestCasesPage();
         String testName = UUID.randomUUID().toString();
         testCasesStep.createTestCase(testName);
     }
 
     @Test
+    @Description("Тест на загрузку файла")
     public void uploadFile() {
         dashboardStep.goToTestCasesPage();
         File file = new File("src/test/resources/upload.csv");
@@ -51,6 +55,7 @@ public class PositiveUITests extends BaseTest {
     }
 
     @Test
+    @Description("Тест всплывающего окна")
     public void checkVisiblePopupMessage() throws IOException {
         dashboardStep.goToTestCasesPage();
         String testName = getTestNameFromFile();
@@ -58,20 +63,23 @@ public class PositiveUITests extends BaseTest {
     }
 
     @Test
-    public void deleteEntityTest() {
+    @Description("Тест на удаление сущности")
+    public void deleteEntityTest()
+    {
         dashboardStep
                 .goToProjectSettingsPage()
                 .goToProjectPage();
+
         int projectsBeforeRemove = projectSteps.projectsCount();
         int expResult = projectsBeforeRemove - 1;
 
         projectSteps.deleteLastProject();
-
         int projectsAfterRemove = projectSteps.projectsCount();
         Assert.assertEquals(projectsAfterRemove, expResult, "Проект не удален");
     }
 
     @Test
+    @Description("Тест диалогового окна")
     public void dialogBoxTest() {
         dashboardStep.goToProjectSettingsPage().goToProjectPage();
         //Получаем имя проекта с Project Key и Description(если они есть) и убираем переносы на новую строку
@@ -79,7 +87,7 @@ public class PositiveUITests extends BaseTest {
         projectSteps.choseLastProject();
         projectSteps.clickDeleteLPButton();
 
-        String actualResult= "Do you want to delete the project " + name + "?";
+        String actualResult = "Do you want to delete the project " + name + "?";
 
         String tmp = $x("//*[@data-testid='text-body']").text(); //актуальный текст
         String expectedResult = tmp.substring(0, tmp.length() - 1) +

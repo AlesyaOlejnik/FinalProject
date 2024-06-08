@@ -17,6 +17,5 @@ public class BaseApiTest {
                 .auth().oauth2(ReadProperties.getToken())
                 .header(HTTP.CONTENT_TYPE, ContentType.JSON);
 
-       // projectService = new ProjectService();
     }
 }

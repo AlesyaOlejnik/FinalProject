@@ -30,13 +30,12 @@ public class ProjectPage implements BasePage {
     }
 
     public ElementsCollection getProjectsList() {
-        return  $$(PROJECTS_LIST);
+        return $$(PROJECTS_LIST);
     }
 
     public ElementsCollection getDescriptionList() {
         return  $$(DESCRIPTIONS_LOCATOR);
     }
-
 
 
 }
