@@ -1,6 +1,7 @@
 package tests.api;
 
 import baseEntities.BaseApiTest;
+import io.qameta.allure.Description;
 import org.apache.http.HttpStatus;
 import org.testng.annotations.Test;
 
@@ -8,8 +9,22 @@ import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
 
-public class PostApiTest extends BaseApiTest {
-    @Test
+public class AfeApiTests extends BaseApiTest {
+
+    @Test(expectedExceptions = AssertionError.class)
+    @Description("Тест на получение данных о проекте с неверным id")
+    public void getWrongIdProjectTest() {
+        String endPoint = "/api/v1/project/12";
+
+        given()
+                .when()
+                .get(endPoint)
+                .then().log().body()
+                .statusCode(HttpStatus.SC_OK);
+    }
+
+    @Test(expectedExceptions = AssertionError.class)
+    @Description("Тест на создание проекта с невалидным projectkey")
     public void createProjectTest() {
         String endPoint = "/api/v1/project";
 
@@ -29,7 +44,7 @@ public class PostApiTest extends BaseApiTest {
                 "  \"description\": \"description\"\n" +
                 "}";
 
-        String projectKey = UUID.randomUUID().toString().toUpperCase().substring(0, 4);
+        String projectKey = UUID.randomUUID().toString().toUpperCase().substring(0, 6);
         UUID projectName = UUID.randomUUID();
 
         given()

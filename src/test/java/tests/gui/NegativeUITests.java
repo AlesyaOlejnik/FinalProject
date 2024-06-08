@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.$;
 public class NegativeUITests extends BaseTest {
 
     @Test
-    public void checkUncorrectDataMessage() {
+    public void checkIncorrectDataMessage() {
         loginStep.unsuccessfulLogin();
     }
 

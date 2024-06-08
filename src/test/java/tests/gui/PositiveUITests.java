@@ -36,7 +36,7 @@ public class PositiveUITests extends BaseTest {
     }
 
     @Test
-    public void createEntity(){
+    public void createEntity() {
         dashboardStep.goToTestCasesPage();
         String testName = UUID.randomUUID().toString();
         testCasesStep.createTestCase(testName);
@@ -57,7 +57,8 @@ public class PositiveUITests extends BaseTest {
     }
 
     @Test
-    public void deleteEntityTest() throws InterruptedException {
+    public void deleteEntityTest()
+    {
         dashboardStep
                 .goToProjectSettingsPage()
                 .goToProjectPage();
@@ -78,7 +79,7 @@ public class PositiveUITests extends BaseTest {
         projectSteps.choseLastProject();
         projectSteps.clickDeleteLPButton();
 
-        String actualResult= "Do you want to delete the project " + name + "?";
+        String actualResult = "Do you want to delete the project " + name + "?";
 
         String tmp = $x("//*[@data-testid='text-body']").text(); //актуальный текст
         String expectedResult = tmp.substring(0, tmp.length() - 1) +
