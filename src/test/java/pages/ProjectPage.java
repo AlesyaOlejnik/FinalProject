@@ -21,6 +21,8 @@ public class ProjectPage implements BasePage {
     public static final By DESCRIPTIONS_LOCATOR = By.xpath("//*[@data-testid='cell-text']");
     public static final By DASHBOARD_BUTTON = By.cssSelector("[data-testid='link-back-to-app']");
 
+    public static final By PROJECTS_COUNT = By.cssSelector("[data-testid='text-paginator-itemCount']");
+
     @Override
     public By getPageIdentifier() {
         return PROJECT_PAGE_IDENTIFIER;
@@ -37,6 +39,10 @@ public class ProjectPage implements BasePage {
     public SelenideElement getDashboardButton(){
         return $(DASHBOARD_BUTTON);
 
+    }
+
+    public SelenideElement projectsCount(){
+        return $(PROJECTS_COUNT);
     }
 
     public ElementsCollection getDescriptionList() {

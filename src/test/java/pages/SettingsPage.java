@@ -17,6 +17,7 @@ public class SettingsPage implements BasePage {
 
     public ProjectPage goToProjectPage() {
         getProjectsButton().click();
+        isPageOpened();
         return new ProjectPage();
     }
 

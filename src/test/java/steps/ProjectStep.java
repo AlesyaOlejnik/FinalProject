@@ -6,6 +6,7 @@ import pages.DashboardPage;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.clickable;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
 import static pages.ProjectPage.PROJECTS_LIST;
 
@@ -17,7 +18,7 @@ public class ProjectStep extends BaseStep {
         $("[data-testid='button-affirm']").shouldBe(clickable).click();
     }
 
-    public void goToDashboardPage(){
+    public void goToDashboardPage() {
         projectPage.getDashboardButton().shouldBe(clickable).click();
     }
 
@@ -41,7 +42,7 @@ public class ProjectStep extends BaseStep {
 
     @SneakyThrows
     public int projectsCount() {
-        return $$(PROJECTS_LIST).size();
+        return Integer.parseInt(projectPage.projectsCount().shouldBe(visible).getText().trim().split(" ")[0]);
     }
 
     public String getLastKey() {
